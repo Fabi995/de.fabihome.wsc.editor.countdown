@@ -58,7 +58,7 @@ RedactorPlugins.countdown = function() {
 					+ '</dl>'
 					+ '<dl>'
 						+ '<button id="redactor-modal-button-action">' + WCF.Language.get('wcf.message.cd.insert') + '</button>'
-				+    '</dl>'
+					+ '</dl>'
 				+ '</fieldset>'
 		}
 	};

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/typhoon/templateListener.xsd">
     <import>
+        <!-- user -->
         <templatelistener name="pluginLang">
             <environment>user</environment>
             <templatename>headIncludeJavaScript</templatename>
             <eventname>javascriptLanguageImport</eventname>
-            <templatecode><![CDATA[{if $__wcf->getBBCodeHandler()->isAvailableBBCode('countdown')},
-            'wcf.message.cd': '{@"wcf.message.cd"|language|encodeJS}',
+            <templatecode><![CDATA[{if $__wcf->getBBCodeHandler()->isAvailableBBCode('countdown')}
+            ,'wcf.message.cd': '{@"wcf.message.cd"|language|encodeJS}',
             'wcf.message.cd.datetime': '{@"wcf.message.cd.datetime"|language|encodeJS}',
             'wcf.message.cd.message': '{@"wcf.message.cd.message"|language|encodeJS}',
-            'wcf.message.cd.insert': '{@"wcf.message.cd.insert"|language|encodeJS}',
+            'wcf.message.cd.insert': '{@"wcf.message.cd.insert"|language|encodeJS}'
             {/if}]]></templatecode>
         </templatelistener>
 
@@ -30,7 +31,7 @@
 
     // add plugin
     config.plugins.push('countdown');
-{/if}]]></templatecode>
+    {/if}]]></templatecode>
         </templatelistener>
 
         <templatelistener name="pluginInclude">
@@ -39,5 +40,47 @@
             <eventname>redactorJavaScript</eventname>
             <templatecode><![CDATA[,'{@$__wcf->getPath()}js/3rdParty/redactor2/plugins/redactor.countdown.js?v={@LAST_UPDATE_TIME}']]></templatecode>
         </templatelistener>
+        <!-- /user -->
+
+        <!-- admin -->
+        <templatelistener name="pluginLang">
+            <environment>admin</environment>
+            <templatename>header</templatename>
+            <eventname>javascriptLanguageImport</eventname>
+            <templatecode><![CDATA[{if $__wcf->getBBCodeHandler()->isAvailableBBCode('countdown')}
+            ,'wcf.message.cd': '{@"wcf.message.cd"|language|encodeJS}',
+            'wcf.message.cd.datetime': '{@"wcf.message.cd.datetime"|language|encodeJS}',
+            'wcf.message.cd.message': '{@"wcf.message.cd.message"|language|encodeJS}',
+            'wcf.message.cd.insert': '{@"wcf.message.cd.insert"|language|encodeJS}'
+            {/if}]]></templatecode>
+        </templatelistener>
+
+        <templatelistener name="pluginInit">
+            <environment>admin</environment>
+            <templatename>wysiwyg</templatename>
+            <eventname>redactorConfig</eventname>
+            <templatecode><![CDATA[{if $__wcf->getBBCodeHandler()->isAvailableBBCode('countdown')}
+    // button options
+    buttonOptions['countdown'] = {
+        icon: 'fa-clock-o',
+        title: '{"wcf.message.cd"|language|encodeJS}'
+    };
+
+    // add button
+    buttonMobile.push('countdown');
+    buttons.push('countdown');
+
+    // add plugin
+    config.plugins.push('countdown');
+    {/if}]]></templatecode>
+        </templatelistener>
+
+        <templatelistener name="pluginInclude">
+            <environment>admin</environment>
+            <templatename>wysiwyg</templatename>
+            <eventname>redactorJavaScript</eventname>
+            <templatecode><![CDATA[,'{@$__wcf->getPath()}js/3rdParty/redactor2/plugins/redactor.countdown.js?v={@LAST_UPDATE_TIME}']]></templatecode>
+        </templatelistener>
+        <!-- /admin -->
     </import>
 </data>
